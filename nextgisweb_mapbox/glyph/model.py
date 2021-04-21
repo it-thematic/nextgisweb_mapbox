@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import os.path
 import tempfile
 import zipfile
+
+from shutil import copyfileobj
 
 from nextgisweb import db
 from nextgisweb.env import env
 from nextgisweb.file_storage import FileObj
 from nextgisweb.models import declarative_base
+from nextgisweb.render import on_style_change
 from nextgisweb.resource import Resource, ResourceGroup, Serializer, SerializedProperty
 from nextgisweb.resource.exception import ValidationError
 from nextgisweb.resource.scope import ResourceScope
 
-from nextgisweb_mapbox.style.model import TileserverGLMixin
+from ..helper import get_mapbox_helper
 from .util import _
 
 
 Base = declarative_base()
 
 
-class MapboxGlyph(Base, Resource, TileserverGLMixin):
+class MapboxGlyph(Base, Resource):
     identity = 'mapbox_glyph'
     cls_display_name = _("Mapbox glyph")
 
@@ -35,19 +39,30 @@ class MapboxGlyph(Base, Resource, TileserverGLMixin):
 class GlyphAttr(SerializedProperty):
 
     def setter(self, srlzr, value):
-        super(GlyphAttr, self).setter(srlzr, value)
-        datafile, metafile = env.file_upload.get_filename(value['id'])
+        srcfile, srcmeta = env.file_upload.get_filename(value['id'])
+        fileobj = env.file_storage.fileobj(component='glyphs')
+        srlzr.obj.glyph_fileobj = fileobj
+        dstfile = env.file_storage.filename(fileobj, makedirs=True)
 
-        if not zipfile.is_zipfile(datafile):
+        with open(srcfile, 'r+b') as fs, open(dstfile, 'w+b') as fd:
+            copyfileobj(fs, fd)
+
+        glyphs_dir = get_mapbox_helper().glyphs_dir
+
+        if not zipfile.is_zipfile(dstfile):
             raise ValidationError(_("Sprite must be a *.zip archive"))
 
-        with tempfile.TemporaryDirectory as tmp:
-            with zipfile.ZipFile(datafile) as zip_sprite:
-                zip_sprite.extractall(path=tmp)
+        with tempfile.TemporaryDirectory():
+            with zipfile.ZipFile(dstfile) as zip_sprite:
+                for sprite_name in zip_sprite.namelist():
+                    if os.path.exists(os.path.join(glyphs_dir, sprite_name)):
+                        raise ValidationError(_("Sprite with name `%s` already exists" % sprite_name))
+                zip_sprite.extractall(path=glyphs_dir)
+        on_style_change.fire(srlzr.obj)
 
 
-class MapboxGlyphSerializer(Serializer):
+class MapboxGlyphsSerializer(Serializer):
     identity = MapboxGlyph.identity
     resclass = MapboxGlyph
 
-    sprite = GlyphAttr(read=ResourceScope.read, write=ResourceScope.update)
+    glyphs = GlyphAttr(read=None, write=ResourceScope.update)

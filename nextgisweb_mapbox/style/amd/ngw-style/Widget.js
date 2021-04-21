@@ -47,6 +47,10 @@ define([
             return true;
         },
 
+        serializeInMixin: function (data) {
+            console.log(data);
+        },
+
         beautify: function () {
             this.style.set("value", json.stringify(json.parse(this.style.get("value")), undefined, 4));
         }

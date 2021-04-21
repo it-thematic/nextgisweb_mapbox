@@ -32,13 +32,13 @@ define([
             var prefix = this.prefix,
                 setObject = function (key, value) { lang.setObject(prefix + "." + key, value, data); };
 
-            setObject("sprite", this.wGlyph.get("value"));
+            setObject("glyphs", this.wGlyphs.get("value"));
         },
 
         validateDataInMixin: function (errback) {
             return this.composite.operation == "create" ?
-                this.wGlyph.upload_promise !== undefined &&
-                    this.wGlyph.upload_promise.isResolved() : true;
+                this.wGlyphs.upload_promise !== undefined &&
+                    this.wGlyphs.upload_promise.isResolved() : true;
         }
 
     });

@@ -3,7 +3,6 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 from nextgisweb.component import Component, require
 
-
 from .model import Base
 from .util import COMP_ID
 

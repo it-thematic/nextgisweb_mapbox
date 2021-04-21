@@ -26,7 +26,6 @@ def pkginfo():
 
 def amd_packages():
     return (
-        ('mapbox-gl-style-spec', 'nextgisweb_mapbox:amd_packages/@mapbox/mapbox-gl-style-spec'),
         ('ngw-style', 'nextgisweb_mapbox:style/amd/ngw-style'),
         ('ngw-sprite', 'nextgisweb_mapbox:sprite/amd/ngw-sprite'),
         ('ngw-glyph', 'nextgisweb_mapbox:glyph/amd/ngw-glyph')
