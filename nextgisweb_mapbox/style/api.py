@@ -14,7 +14,7 @@ from pyramid.response import FileResponse, Response
 
 from .model import MapboxStyle
 from ..sprite.model import MapboxSprite
-from ..glyph.model import MapboxGlyph
+from ..glyphs.model import MapboxGlyph
 from ..helper import get_mapbox_helper
 
 

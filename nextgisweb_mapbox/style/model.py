@@ -12,7 +12,7 @@ from nextgisweb.resource.scope import ResourceScope
 
 from nextgisweb_mapbox.helper import get_mapbox_helper
 from nextgisweb_mapbox.sprite.model import MapboxSprite
-from nextgisweb_mapbox.glyph.model import MapboxGlyph
+from nextgisweb_mapbox.glyphs.model import MapboxGlyph
 
 from .util import _
 
@@ -50,7 +50,7 @@ class StyleAttr(SerializedProperty):
         mb_style['name'] = style_name
 
         if os.path.exists(os.path.join(style_dir, style_name + '.json')):
-            raise ValidationError(_("MapboxStyle with name '%s' exists" % style_name))
+            raise ValidationError(_("Mapbox Style with name '%s' exists") % style_name)
         with open(os.path.join(style_dir, style_name + '.json'), mode='w', encoding='utf-8') as fs:
             fs.write(dumps(mb_style, ensure_ascii=True, indent=4))
         super(StyleAttr, self).setter(srlzr, dumps(mb_style, ensure_ascii=True))

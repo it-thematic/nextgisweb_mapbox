@@ -25,7 +25,7 @@ Base = declarative_base()
 
 class MapboxSprite(Base, Resource):
     identity = 'mapbox_sprite'
-    cls_display_name = _("Mapbox sprite")
+    cls_display_name = _("Sprite")
 
     sprite_fileobj_id = db.Column(db.ForeignKey(FileObj.id), nullable=True)
 

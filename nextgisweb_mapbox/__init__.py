@@ -13,7 +13,7 @@ def pkginfo():
     components = (
         'style',
         'sprite',
-        'glyph'
+        'glyphs'
     )
 
     return dict(
@@ -28,5 +28,5 @@ def amd_packages():
     return (
         ('ngw-style', 'nextgisweb_mapbox:style/amd/ngw-style'),
         ('ngw-sprite', 'nextgisweb_mapbox:sprite/amd/ngw-sprite'),
-        ('ngw-glyph', 'nextgisweb_mapbox:glyph/amd/ngw-glyph')
+        ('ngw-glyphs', 'nextgisweb_mapbox:glyphs/amd/ngw-glyphs')
     )

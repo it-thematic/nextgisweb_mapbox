@@ -25,7 +25,7 @@ define([
 ) {
     return declare([ContentPane, serialize.Mixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: hbsI18n(template, i18n),
-        title: i18n.gettext("Mapbox sprite"),
+        title: i18n.gettext("Sprite"),
         prefix: "mapbox_sprite",
 
         serializeInMixin: function (data) {

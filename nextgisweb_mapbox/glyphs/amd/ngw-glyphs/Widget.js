@@ -4,7 +4,7 @@ define([
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dijit/layout/ContentPane",
-    "ngw-pyramid/i18n!glyph",
+    "ngw-pyramid/i18n!glyphs",
     "ngw-pyramid/hbs-i18n",
     "ngw-resource/serialize",
     // resource
@@ -25,8 +25,8 @@ define([
 ) {
     return declare([ContentPane, serialize.Mixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: hbsI18n(template, i18n),
-        title: i18n.gettext("Mapbox glyph"),
-        prefix: "mapbox_glyph",
+        title: i18n.gettext("Glyphs"),
+        prefix: "mapbox_glyphs",
 
         serializeInMixin: function (data) {
             var prefix = this.prefix,

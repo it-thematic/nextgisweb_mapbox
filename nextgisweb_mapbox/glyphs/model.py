@@ -24,8 +24,8 @@ Base = declarative_base()
 
 
 class MapboxGlyph(Base, Resource):
-    identity = 'mapbox_glyph'
-    cls_display_name = _("Mapbox glyph")
+    identity = 'mapbox_glyphs'
+    cls_display_name = _("Glyphs")
 
     glyph_fileobj_id = db.Column(db.ForeignKey(FileObj.id), nullable=True)
 
@@ -50,13 +50,13 @@ class GlyphAttr(SerializedProperty):
         glyphs_dir = get_mapbox_helper().glyphs_dir
 
         if not zipfile.is_zipfile(dstfile):
-            raise ValidationError(_("Sprite must be a *.zip archive"))
+            raise ValidationError(_("Glyphs must be a *.zip archive"))
 
         with tempfile.TemporaryDirectory():
             with zipfile.ZipFile(dstfile) as zip_sprite:
                 for sprite_name in zip_sprite.namelist():
                     if os.path.exists(os.path.join(glyphs_dir, sprite_name)):
-                        raise ValidationError(_("Sprite with name `%s` already exists" % sprite_name))
+                        raise ValidationError(_("Glyphs with name `%s` already exists") % sprite_name)
                 zip_sprite.extractall(path=glyphs_dir)
         on_style_change.fire(srlzr.obj)
 

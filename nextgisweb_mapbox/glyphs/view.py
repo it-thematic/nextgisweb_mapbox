@@ -9,4 +9,4 @@ from .model import MapboxGlyph
 class GlyphWidget(Widget):
     resource = MapboxGlyph
     operation = ('create', 'update')
-    amdmod = 'ngw-glyph/Widget'
+    amdmod = 'ngw-glyphs/Widget'

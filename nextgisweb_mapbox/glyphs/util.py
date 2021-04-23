@@ -2,5 +2,5 @@
 from __future__ import unicode_literals
 from nextgisweb.i18n import trstring_factory
 
-COMP_ID = 'glyph'
+COMP_ID = 'glyphs'
 _ = trstring_factory(COMP_ID)
