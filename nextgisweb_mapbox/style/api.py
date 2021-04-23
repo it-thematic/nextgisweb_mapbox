@@ -56,13 +56,15 @@ def sprite(resource, request):
 
 def style_json(resource, request):
     request.resource_permission(ResourceScope.read)
+    style_dict = loads(resource.style)
 
     sprite_url = request.route_url('mapbox.sprite', id=resource.sprite_id, format='') if resource.sprite else None
-    glyphs_url = request.route_url('mapbox.glyphs', id=resource.glyphs_id, fontstack='', range='', format='') if resource.glyphs else None
+    if sprite_url:
+        style_dict['sprite'] = sprite_url
 
-    style_dict = loads(resource.style)
-    style_dict['sprite'] = sprite_url if sprite_url else "{style}"
-    style_dict['glyphs'] = glyphs_url + "/{fontstack}/{range}.pbf" if glyphs_url else "{fontstack}/{range}.pbf"
+    glyphs_url = request.route_url('mapbox.glyphs', id=resource.glyphs_id) if resource.glyphs else None
+    if glyphs_url:
+        style_dict['glyphs'] = glyphs_url
 
     response = Response(
         body=dumps(style_dict, ensure_ascii=False, indent=4),
