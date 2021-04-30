@@ -19,18 +19,21 @@ from ..helper import get_mapbox_helper
 
 
 def glyphs(resource, request):
-    font_name = request.matchdict['fontstack']
-    if not font_name:
+    font_names = request.matchdict['fontstack'].split(',')
+    if not font_names:
         return Response(status=404)
 
     range_from = request.matchdict['from']
     range_to = request.matchdict['to']
     dstfile = env.file_storage.filename(resource.glyph_fileobj, makedirs=False)
     with zipfile.ZipFile(dstfile) as fzip:
-        if font_name not in set((fzipname.split('/')[0] for fzipname in fzip.namelist())):
-            return Response(status=404, body='The Font `%s` is not available' % font_name)
-    glyphs_dir = get_mapbox_helper().glyphs_dir
-    return FileResponse(os.path.join(glyphs_dir, font_name, '%s-%s.pbf' % (min(range_from, range_to), max(range_from, range_to))))
+        for font_name in font_names:
+            if font_name in set((fzipname.split('/')[0] for fzipname in fzip.namelist())):
+                glyphs_dir = get_mapbox_helper().glyphs_dir
+                return FileResponse(os.path.join(glyphs_dir, font_name,
+                                                 '%s-%s.pbf' % (min(range_from, range_to), max(range_from, range_to))))
+    return Response(status=404, body='The Fonts not available' % font_name)
+
 
 
 def sprite(resource, request):
