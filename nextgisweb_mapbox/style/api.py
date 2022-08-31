@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals, print_function, absolute_import
-
 import os.path
 import zipfile
 
@@ -33,7 +31,6 @@ def glyphs(resource, request):
                 return FileResponse(os.path.join(glyphs_dir, font_name,
                                                  '%s-%s.pbf' % (min(range_from, range_to), max(range_from, range_to))))
     return Response(status=404, body='The Fonts not available' % font_name)
-
 
 
 def sprite(resource, request):

@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-
-from __future__ import division, unicode_literals, print_function, absolute_import
-import os
-import logging
-
 from nextgisweb.env import Env, setenv
-
-logger = logging.getLogger(__name__)
+from nextgisweb.lib.logging import logger
 
 
 def pkginfo():

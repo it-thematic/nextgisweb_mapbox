@@ -3,12 +3,14 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from json import loads, dumps
+from zope.interface import implementer
 from nextgisweb import db
+from nextgisweb.feature_layer.interface import IFeatureLayer
 from nextgisweb.models import declarative_base
-from nextgisweb.render import on_style_change
-from nextgisweb.resource import Resource, ResourceGroup, Serializer, SerializedProperty, SerializedResourceRelationship
+from nextgisweb.render import IRenderableStyle, on_style_change
+from nextgisweb.resource import Resource, Serializer, SerializedProperty, SerializedResourceRelationship
 from nextgisweb.resource.exception import ValidationError
-from nextgisweb.resource.scope import ResourceScope
+from nextgisweb.resource.scope import ResourceScope, DataScope
 
 from nextgisweb_mapbox.helper import get_mapbox_helper
 from nextgisweb_mapbox.sprite.model import MapboxSprite
@@ -19,9 +21,12 @@ from .util import _
 Base = declarative_base()
 
 
+@implementer(IRenderableStyle)
 class MapboxStyle(Base, Resource):
     identity = 'mapbox_style'
     cls_display_name = _('Mapbox style')
+
+    __scope__ = DataScope
 
     style = db.Column(db.Unicode, nullable=False)
     sprite_id = db.Column(db.ForeignKey(MapboxSprite.id, ondelete="SET NULL"), nullable=True)
@@ -32,7 +37,7 @@ class MapboxStyle(Base, Resource):
 
     @classmethod
     def check_parent(cls, parent):
-        return isinstance(parent, ResourceGroup)
+        return IFeatureLayer.providedBy(parent)
 
 
 class StyleAttr(SerializedProperty):

@@ -15,7 +15,7 @@ class StyleComponent(Component):
 
     @require('resource')
     def setup_pyramid(self, config):
-        from . import view, api
+        from . import view, api, adapter
 
         view.setup_pyramid(self, config)
         api.setup_pyramid(self, config)
