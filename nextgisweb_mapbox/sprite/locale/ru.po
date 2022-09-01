@@ -31,7 +31,7 @@ msgstr "Спрайт должен быть *.zip архивом"
 #: model.py:59
 #, python-format
 msgid "Sprite with name `%s` already exists"
-msgstr "Спрайт с имененм `%s` уже существует"
+msgstr "Спрайт с именем `%s` уже существует"
 
 #: amd/ngw-sprite/template/Widget.hbs:7
 msgid "Sprite *.zip-file"

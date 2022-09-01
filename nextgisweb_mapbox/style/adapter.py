@@ -7,4 +7,4 @@ from .util import _
 class MVTAdapter:
     identity = 'mvt'
     mid = 'ngw-style/MVTAdapter'
-    display_name = _("MVT")
+    display_name = _("MVT Vector Tiles")
