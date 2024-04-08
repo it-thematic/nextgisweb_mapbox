@@ -1,12 +1,11 @@
-# -*- coding: utf-8 -*-
 import os
-
 from json import loads
 
+import requests
+
 from nextgisweb.env import env
-from nextgisweb.tmsclient.session_keeper import get_session
-from requests.exceptions import ConnectTimeout, ReadTimeout
-from six.moves.urllib.parse import urlparse
+from nextgisweb.lib.logging import logger
+from requests.exceptions import Timeout
 
 
 class TileserverGLHelper:
@@ -32,15 +31,15 @@ class TileserverGLHelper:
         self.glyphs_dir = os.path.join(self.base_dir, ts_options['paths'].get('fonts', ''))
 
     def _request(self, url, params=None):
-        _session = get_session('mapbox', urlparse(self.base_url).scheme)
+
         try:
-            res = _session.get(
+            res = requests.get(
                 url,
                 params=params,
                 timeout=env.mapbox.options["tileserver.timeout"]
             )
-        except (ConnectTimeout, ReadTimeout) as e:
-            env.mapbox.logger.error(e)
+        except Timeout as e:
+            logger.error(e)
         else:
             res.raise_for_status()
             return res.json()

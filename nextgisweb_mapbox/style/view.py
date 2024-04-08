@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from nextgisweb.lib import dynmenu as dm
 
-import nextgisweb.dynmenu as dm
-
+from nextgisweb.env import _
 from nextgisweb.resource import Resource, Widget
 
 from .model import MapboxStyle
-from .util import _
 
 
 class StyleWidget(Widget):

@@ -1,31 +1,37 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dijit/layout/ContentPane",
-    "ngw-pyramid/i18n!sprite",
-    "ngw-pyramid/hbs-i18n",
+    "@nextgisweb/pyramid/i18n!",
+//    "@nextgisweb/file-upload/file-uploader",
     "ngw-resource/serialize",
     // resource
     "dojo/text!./template/Widget.hbs",
     // template
     "dojox/layout/TableContainer",
-    "ngw-file-upload/Uploader"
 ], function (
     declare,
     lang,
+    _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    ContentPane,
     i18n,
-    hbsI18n,
+//    fileUploader,
     serialize,
     template
 ) {
-    return declare([ContentPane, serialize.Mixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
-        templateString: hbsI18n(template, i18n),
+    return declare(
+    [
+
+        _WidgetBase, 
+        _TemplatedMixin, 
+        _WidgetsInTemplateMixin,
+        serialize.Mixin
+    ], {
         title: i18n.gettext("Sprite"),
+        templateString: i18n.renderTemplate(template),
         prefix: "mapbox_sprite",
 
         serializeInMixin: function (data) {
@@ -36,9 +42,9 @@ define([
         },
 
         validateDataInMixin: function (errback) {
-            return this.composite.operation == "create" ?
-                this.wSprite.upload_promise !== undefined &&
-                    this.wSprite.upload_promise.isResolved() : true;
+//            return this.composite.operation == "create" ?
+//                this.wSprite.upload_promise !== undefined &&
+//                    this.wSprite.upload_promise.isResolved() : true;
         }
 
     });

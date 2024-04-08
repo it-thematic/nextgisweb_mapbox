@@ -1,24 +1,19 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
 import os
-
 from json import loads, dumps
+
 from zope.interface import implementer
-from nextgisweb import db
+
+from nextgisweb.env import Base, _, env
+from nextgisweb.lib import db
 from nextgisweb.feature_layer.interface import IFeatureLayer
-from nextgisweb.models import declarative_base
 from nextgisweb.render import IRenderableStyle, on_style_change
 from nextgisweb.resource import Resource, Serializer, SerializedProperty, SerializedResourceRelationship
 from nextgisweb.resource.exception import ValidationError
 from nextgisweb.resource.scope import ResourceScope, DataScope
 
-from nextgisweb_mapbox.helper import get_mapbox_helper
-from nextgisweb_mapbox.sprite.model import MapboxSprite
-from nextgisweb_mapbox.glyphs.model import MapboxGlyph
-
-from .util import _
-
-Base = declarative_base()
+from ..helper import get_mapbox_helper
+from ..sprite.model import MapboxSprite
+from ..glyphs.model import MapboxGlyph
 
 
 @implementer(IRenderableStyle)

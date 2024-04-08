@@ -5,18 +5,18 @@ define([
     "dojo/json",
     "dojo/request/xhr",
     "dijit/layout/ContentPane",
+    "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "ngw/route",
-    "ngw-pyramid/i18n!style",
-    "ngw-pyramid/hbs-i18n",
+    "ngw-pyramid/route",
+    "ngw-resource/ResourceBox",
+    "@nextgisweb/pyramid/i18n!",
     "ngw-resource/serialize",
     "dojo/text!./template/Widget.hbs",
     // template
+    "dijit/form/Textarea",
     "dijit/Dialog",
     "dijit/layout/BorderContainer",
-    "dijit/form/Textarea",
-    "ngw-pyramid/form/CodeMirror",
     "dijit/Toolbar",
     "dojox/layout/TableContainer",
     "dijit/layout/TabContainer",
@@ -29,17 +29,25 @@ define([
     json,
     xhr,
     ContentPane,
+    _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
     route,
+    ResourceBox,
     i18n,
-    hbsI18n,
     serialize,
     template
 ) {
-    return declare([ContentPane, serialize.Mixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
-        templateString: hbsI18n(template, i18n),
+    return declare(
+    [
+        ContentPane,
+        _WidgetBase, 
+        _TemplatedMixin, 
+        _WidgetsInTemplateMixin,
+        serialize.Mixin
+    ], {
         title: i18n.gettext("Mapbox style"),
+        templateString: i18n.renderTemplate(template),
         prefix: "mapbox_style",
 
         validateDataInMixin: function (errback) {

@@ -1,33 +1,40 @@
-#: adapter.py:10
+#: adapter.py:9
+#, server
 msgid "MVT Vector Tiles"
 msgstr "Векторные тайлы MVT"
 
-#: amd/ngw-style/Widget.js:42 model.py:27 view.py:23 view.py:26
+#: amd/ngw-style/Widget.js:42 model.py:22 view.py:20 view.py:23
+#, amd, server
 msgid "Mapbox style"
 msgstr "Стиль Mapbox"
 
-#: model.py:58
-#, python-format
-msgid "Mapbox Style with name '%s' exists"
-msgstr "Стиль Mapbox с именем `%s` уже существует"
-
 #: amd/ngw-style/template/Widget.hbs:8
+#, amd
 msgid "Select sprite resource"
 msgstr "Выберете ресурс спрайта"
 
 #: amd/ngw-style/template/Widget.hbs:11
+#, amd
 msgid "Sprite"
 msgstr "Спрайт"
 
 #: amd/ngw-style/template/Widget.hbs:15
+#, amd
 msgid "Select glyphs resource"
 msgstr "Выберете ресурс глифов"
 
 #: amd/ngw-style/template/Widget.hbs:18
+#, amd
 msgid "Glyphs"
 msgstr "Глифы"
 
 #: amd/ngw-style/template/Widget.hbs:29
+#, amd
 msgid "Beautify"
 msgstr "Выровнять"
+
+#: model.py:53
+#, python-format, server
+msgid "Mapbox Style with name '%s' exists"
+msgstr "Стиль Mapbox с именем `%s` уже существует"
 

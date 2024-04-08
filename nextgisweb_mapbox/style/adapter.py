@@ -1,6 +1,5 @@
-# coding: utf-8
+from nextgisweb.env import _
 from nextgisweb.webmap.adapter import WebMapAdapter
-from .util import _
 
 
 @WebMapAdapter.registry.register

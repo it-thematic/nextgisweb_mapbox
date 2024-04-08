@@ -1,31 +1,41 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
-    "dijit/layout/ContentPane",
-    "ngw-pyramid/i18n!glyphs",
-    "ngw-pyramid/hbs-i18n",
-    "ngw-resource/serialize",
     // resource
+    "@nextgisweb/pyramid/i18n!",
+//    "@nextgisweb/file-upload",
+    "ngw-resource/serialize",
+    // template
     "dojo/text!./template/Widget.hbs",
     // template
-    "dojox/layout/TableContainer",
-    "ngw-file-upload/Uploader"
+    "dijit/layout/ContentPane",
+    "dojox/layout/TableContainer"
 ], function (
     declare,
     lang,
+    _WidgetBase,
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
-    ContentPane,
     i18n,
-    hbsI18n,
+//    fileUpload,
     serialize,
-    template
+    template,
+    ContentPane,
+    TableContainer  
 ) {
-    return declare([ContentPane, serialize.Mixin, _TemplatedMixin, _WidgetsInTemplateMixin], {
-        templateString: hbsI18n(template, i18n),
+    return declare(
+    [
+        ContentPane,
+        _WidgetBase,
+        _TemplatedMixin,
+        _WidgetsInTemplateMixin,
+        serialize.Mixin
+    ], {
         title: i18n.gettext("Glyphs"),
+        templateString: i18n.renderTemplate(template),
         prefix: "mapbox_glyphs",
 
         serializeInMixin: function (data) {

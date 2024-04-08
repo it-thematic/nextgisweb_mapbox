@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os.path
 import zipfile
 
@@ -77,17 +76,29 @@ def style_json(resource, request):
 
 def setup_pyramid(comp, config):
     config.add_route(
-        'mapbox.style_json', '/api/resource/{id}/json',
-        factory=resource_factory) \
-        .add_view(style_json, context=MapboxStyle, request_method='GET')
+        'mapbox.style_json',
+        '/api/resource/{id}/json',
+        types=dict(id=int),
+        get=style_json
+    )
 
     config.add_route(
-        'mapbox.sprite', '/api/resource/{id}/sprite{format:.*?}', factory=resource_factory) \
-        .add_view(sprite, context=MapboxSprite, request_method='GET')
+        'mapbox.sprite',
+        '/api/resource/{id}/sprite{format:any}',
+        types=dict(id=int, format=str),
+        get=sprite
+    )
 
     config.add_route(
-        'mapbox.glyphs', '/api/resource/{id}/glyphs', factory=resource_factory)
+        'mapbox.glyphs',
+        '/api/resource/{id}/glyphs',
+        types=dict(id=int, ),
+        get=glyphs
+        )
 
     config.add_route(
-        'mapbox.glyphs.fonts', '/api/resource/{id}/glyphs/{fontstack}/{from}-{to}.pbf', factory=resource_factory) \
-        .add_view(glyphs, context=MapboxGlyph, request_method='GET')
+        'mapbox.glyphs.fonts',
+        '/api/resource/{id:int}/glyphs/{fontstack:str}/{from:int}-{to:int}.pbf',
+        get=glyphs
+    )
+

@@ -13,7 +13,10 @@ def pkginfo():
     return dict(
         components={
             comp: dict(
-                module='nextgisweb_mapbox.{}'.format(comp)) for comp in components
+                module="nextgisweb_mapbox.{}".format(comp),
+                enabled=True
+            )
+            for comp in components
         }
     )
 

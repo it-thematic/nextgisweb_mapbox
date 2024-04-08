@@ -1,26 +1,18 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 import os.path
 import tempfile
 import zipfile
 
 from shutil import copyfileobj
 
-from nextgisweb import db
-from nextgisweb.env import env
+from nextgisweb.env import Base, _, env
 from nextgisweb.file_storage import FileObj
-from nextgisweb.models import declarative_base
+from nextgisweb.lib import db
 from nextgisweb.render import on_style_change
 from nextgisweb.resource import Resource, ResourceGroup, Serializer, SerializedProperty
 from nextgisweb.resource.exception import ValidationError
 from nextgisweb.resource.scope import ResourceScope
 
 from ..helper import get_mapbox_helper
-from .util import _
-
-
-Base = declarative_base()
 
 
 class MapboxGlyph(Base, Resource):
